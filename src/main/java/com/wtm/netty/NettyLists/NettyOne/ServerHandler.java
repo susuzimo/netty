@@ -8,20 +8,18 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
-/*指明我这个handler可以在多个channel之间共享，意味这个实现必须线程安全的。*/
+/**指明我这个handler可以在多个channel之间共享，意味这个实现必须线程安全的。*/
 @ChannelHandler.Sharable
 public class ServerHandler extends ChannelInboundHandlerAdapter {
-
     /*** 服务端读取到网络数据后的处理*/
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf in = (ByteBuf)msg;/*netty实现的缓冲区*/
+        ByteBuf in = (ByteBuf)msg;/**netty实现的缓冲区*/
         System.out.println("Server Accept:"+in.toString(CharsetUtil.UTF_8));
         String bytes="服务端返回";
         in.writeBytes(bytes.getBytes());
         ctx.write(in);
     }
-
     /*** 服务端读取完成网络数据后的处理*/
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {

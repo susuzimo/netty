@@ -20,9 +20,14 @@ public class ClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     /*客户端被通知channel活跃以后，做事*/
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        //往服务器写数据
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Hello,Netty",
-                CharsetUtil.UTF_8));
+        ByteBuf msg = null;
+        String request = "zhangwuji,zhangsanfeng" +System.getProperty("line.separator");
+        for(int i=0;i<100;i++){
+            //设置msg的容量 initialCapacity
+            msg = Unpooled.buffer(request.length());
+            msg.writeBytes(request.getBytes());
+            ctx.writeAndFlush(msg);
+        }
     }
 
     /*处理异常*/
