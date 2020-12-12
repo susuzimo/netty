@@ -1,13 +1,11 @@
-package com.wtm.netty.NettyLists.review;
+package com.wtm.netty.NettyLists.StickPackage.customSeparator;
 
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
-
 
 
 /**
@@ -22,7 +20,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ByteBuf msg = null;
-        String request = "zhangwuji,zhangsanfeng" +System.getProperty("line.separator");
+        String request = "ZhangWuJi,ZhangSanFeng"+Server.DELIMITER_SYMBOL;
         for(int i=0;i<100;i++){
             //设置msg的容量 initialCapacity
             msg = Unpooled.buffer(request.length());
